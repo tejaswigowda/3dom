@@ -1,4 +1,4 @@
-# @tejaswigowda/3dom
+# 3D Object Model
 
 **jQuery for 3D.** Address and edit *any* three.js scene with CSS-like selectors,
 deterministic auto-labelling, and undoable ops. All in one line:
