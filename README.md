@@ -11,24 +11,31 @@ $S.undo();
 No editor. No framework. No build step required. Just three.js (a **peer**
 dependency) and this.
 
-📖 **Docs:** http://tejaswigowda.com/3dom/ · **Repo:** https://github.com/tejaswigowda/3dom  
-🕹️ **Live demo:** [bare.html](http://tejaswigowda.com/3dom/examples/bare.html) · [bare-3mf.html](http://tejaswigowda.com/3dom/examples/bare-3mf.html)
+▶ **Documentation:** http://tejaswigowda.com/3dom/  
+▶ **Repository:** https://github.com/tejaswigowda/3dom  
+▶ **Live demo:** [bare.html](http://tejaswigowda.com/3dom/examples/bare.html) · [bare-3mf.html](http://tejaswigowda.com/3dom/examples/bare-3mf.html)
 
-- **Selectors:** query the scene graph like the DOM: `mesh`, `.red`, `#Body`,
-  `.wheel:visible`, `light, camera`.
-- **Auto-labelling:** derive stable classes from geometry, colour, material and
-  name. So `.red`, `.box`, `.wheel` *just work* on scenes you didn't author.
-- **Undoable ops:** every mutation goes through a **Host**. Out of the box you
-  get a built-in undo/redo stack. Drop in your app's command system to reuse it.
-- **Tiny:** ~24 kB minified. three stays external.
 
 ---
 
-## Install
+## Features
 
-Straight from a CDN. No build, no publish step. jsDelivr serves the repo's
-`dist/` directly from GitHub. `three` is a **peer**, so the page brings its own via
-the same import map. Copy this into your page's `<head>`:
+◆ **Selectors:** Query the scene graph like the DOM: `mesh`, `.red`, `#Body`, `.wheel:visible`, `light, camera`.
+
+◆ **Auto-labelling:** Derive stable classes from geometry, colour, material and name. So `.red`, `.box`, `.wheel` *just work* on scenes you didn't author.
+
+◆ **Undoable ops:** Every mutation goes through a **Host**. Out of the box you get a built-in undo/redo stack. Drop in your app's command system to reuse it.
+
+◆ **Tiny:** ~24 kB minified. three.js stays external.
+
+
+---
+
+## Installation
+
+Straight from a CDN. No build, no publish step. jsDelivr serves the repository's `dist/` directly from GitHub. `three` is a **peer dependency**, so include it via the same import map.
+
+Copy this into your page's `<head>`:
 
 ```html
 <script type="importmap">
@@ -43,23 +50,25 @@ the same import map. Copy this into your page's `<head>`:
 </script>
 ```
 
-Pinned to a commit (as above) for an immutable, long-cached URL — a tag (`@v0.1.0`)
-works too. `@main` also resolves but is mutable and cached for up to a week. The Statically CDN
-uses the same path shape:
+Pinned to a commit (as above) for an immutable, long-cached URL — a tag like `@v0.1.0` works too. `@main` also resolves but is mutable and cached for up to a week. Alternative CDNs use the same path shape:
 
+**jsDelivr:**
 ```
-jsDelivr (GitHub):   https://cdn.jsdelivr.net/gh/tejaswigowda/3dom@838d7d73e55707eb0fc0eb680a28ceba44022c52/dist/3dom.esm.min.js
-Statically (GitHub): https://cdn.statically.io/gh/tejaswigowda/3dom/838d7d73e55707eb0fc0eb680a28ceba44022c52/dist/3dom.esm.min.js
+https://cdn.jsdelivr.net/gh/tejaswigowda/3dom@838d7d73e55707eb0fc0eb680a28ceba44022c52/dist/3dom.esm.min.js
 ```
 
-> **Strata itself consumes the library this exact way.** The editor's import map
-> **Strata consumes this library exactly this way.** The editor's import map
-> maps `@tejaswigowda/3dom` to the pinned jsDelivr URL. Then
-> `strata3dom.js` imports it by bare specifier.
+**Statically:**
+```
+https://cdn.statically.io/gh/tejaswigowda/3dom/838d7d73e55707eb0fc0eb680a28ceba44022c52/dist/3dom.esm.min.js
+```
+
+> **Note:** Strata editor consumes this library exactly this way. Its import map maps `@tejaswigowda/3dom` to the pinned jsDelivr URL, then `strata3dom.js` imports it by bare specifier.
 
 ---
 
-## 60-second example (a bare three.js page)
+## Quick Start
+
+Here's a 60-second example using bare three.js:
 
 ```js
 import * as THREE from 'three';
@@ -69,7 +78,7 @@ const scene = new THREE.Scene();
 // ... add your meshes ...
 
 autoLabel( scene );            // derive .red / .box / .wheel / … classes
-const $S = createS( scene );   // bind $, with its own undo history
+const $S = createS( scene );   // bind selector, with its own undo history
 
 $S('.wheel').recolor('#ff3b3b').scale(1.2);
 $S('mesh').rotate('y', 30);
@@ -79,49 +88,60 @@ $S.undo();   // built-in, reversible
 $S.redo();
 ```
 
-Try the [**live demo**](http://tejaswigowda.com/3dom/examples/bare.html):
-orbit/pan/zoom the scene, click any selector or op, and type your own `$S(...)` in the
-live shell. Source: [`examples/bare.html`](examples/bare.html). No editor, no bundler.
+**Live demo:** Open [bare.html](http://tejaswigowda.com/3dom/examples/bare.html), orbit/pan/zoom the scene, click selectors and ops, and type your own `$S(...)` commands in the live shell. Source: [`examples/bare.html`](examples/bare.html). No editor, no bundler required.
 
 ---
 
-## The selector set
+## Selectors
+
+Query the scene graph using familiar CSS-like syntax:
 
 | Selector          | Matches                                          |
-| ----------------- | ------------------------------------------------ |
-| `mesh` `light` …  | by object type (`mesh` `group` `light` `camera` `sprite` `line` `points` `bone` `object3d`) |
-| `.red` `.wheel`   | by class (author-set or auto-labelled)           |
-| `#Body`           | by id: `userData.label`, falling back to `.name` |
-| `.a.b`            | compound (AND)                                   |
-| `A B`             | descendant combinator                            |
-| `A > B`           | child combinator                                 |
-| `*`               | everything                                       |
-| `:selected`       | host app's live selection (editor-bound)         |
+|:------------------|:-------------------------------------------------|
+| `mesh` `light` …  | By object type: `mesh`, `group`, `light`, `camera`, `sprite`, `line`, `points`, `bone`, `object3d` |
+| `.red` `.wheel`   | By class (author-set or auto-labelled)           |
+| `#Body`           | By id: `userData.label`, falling back to `.name` |
+| `.a.b`            | Compound (AND)                                   |
+| `A B`             | Descendant combinator                            |
+| `A > B`           | Child combinator                                 |
+| `*`               | All objects                                      |
+| `:selected`       | Host app's live selection (editor-bound)         |
 
-See [`SPEC.md`](SPEC.md) for the full grammar, auto-label rules and op contract.
-
----
-
-## The chain
-
-Read (non-mutating): `.nodes` `.length` `.count` `.exists` `.names` `.first`
-`.last` `.classes()` `.each(fn)` `.toArray()`
-Traverse (new set): `.not(sel)` `.parent()` `.children()` `.filter(pred)`
-Mutate (returns `this`, undoable): `.recolor()` `.scale()` `.move()` `.rotate()`
-`.delete()` `.duplicate()` `.setMaterial()` `.setOpacity()` `.setVisible()`
-`.wireframe()` `.castShadow()` `.receiveShadow()` `.renderOrder()` `.metalness()`
-`.roughness()`
-Label: `.addClass()` `.removeClass()` `.editID(name)`
-JSON ops: `.op(json)` `.ops([...])`
+See [SPEC.md](SPEC.md) for the full grammar and auto-label rules.
 
 ---
 
-## Bring your own undo (host apps)
+## API Chain
 
-The ops layer never imports a command class. It calls **Host** factories. Pass a
-scene and you get `DefaultHost` (built-in undo). Pass a Host and your app owns
-history, notifications, and execution:
+All operations return `this` for chaining, and are undoable by default.
 
+**Reading (non-mutating):**  
+`.nodes` · `.length` · `.count` · `.exists` · `.names` · `.first` · `.last` · `.classes()` · `.each(fn)` · `.toArray()`
+
+**Traversal (new set):**  
+`.not(sel)` · `.parent()` · `.children()` · `.filter(pred)`
+
+**Mutation (undoable):**  
+`.recolor()` · `.scale()` · `.move()` · `.rotate()` · `.delete()` · `.duplicate()` · `.setMaterial()` · `.setOpacity()` · `.setVisible()` · `.wireframe()` · `.castShadow()` · `.receiveShadow()` · `.renderOrder()` · `.metalness()` · `.roughness()`
+
+**Labeling:**  
+`.addClass()` · `.removeClass()` · `.editID(name)`
+
+**JSON ops:**  
+`.op(json)` · `.ops([...])`
+
+---
+
+## Custom Undo (Host Integration)
+
+The ops layer doesn't import a command class. Instead, it calls **Host** factories. This design allows you to bring your own undo/redo system or use the built-in `DefaultHost`:
+
+**Built-in (default):**
+```js
+const $S = createS(scene);  // uses DefaultHost internally
+```
+
+**Custom host (for editor integration):**
 ```js
 const $S = createS({
   scene,
@@ -135,11 +155,11 @@ const $S = createS({
 });
 ```
 
-This is exactly how the Strata editor consumes 3DOM: the library is the model,
-Strata is a host.
+This is exactly how the **Strata editor** consumes 3DOM: the library is the model, Strata is the host.
 
 ---
 
-## Licence
+## License
 
-MIT © Tejaswi Gowda. three.js is a peer dependency under its own licence.
+MIT © Tejaswi Gowda  
+three.js is a peer dependency under its own license.
