@@ -11,8 +11,8 @@ $S.undo();
 No editor. No framework. No build step required. Just three.js (a **peer**
 dependency) and this.
 
-📖 **Repo:** https://github.com/tejaswigowda/3dom  
-🕹️ **Live demo:** [`examples/bare.html`](examples/bare.html) · [`examples/bare-3mf.html`](examples/bare-3mf.html)
+📖 **Docs:** http://tejaswigowda.com/3dom/ · **Repo:** https://github.com/tejaswigowda/3dom  
+🕹️ **Live demo:** [bare.html](http://tejaswigowda.com/3dom/examples/bare.html) · [bare-3mf.html](http://tejaswigowda.com/3dom/examples/bare-3mf.html)
 
 - **Selectors:** query the scene graph like the DOM: `mesh`, `.red`, `#Body`,
   `.wheel:visible`, `light, camera`.
@@ -34,7 +34,7 @@ the same import map. Copy this into your page's `<head>`:
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/build/three.module.js",
-  "@tejaswigowda/3dom": "https://cdn.jsdelivr.net/gh/tejaswigowda/3dom@main/dist/3dom.esm.min.js"
+  "@tejaswigowda/3dom": "https://cdn.jsdelivr.net/gh/tejaswigowda/3dom@838d7d73e55707eb0fc0eb680a28ceba44022c52/dist/3dom.esm.min.js"
 } }
 </script>
 <script type="module">
@@ -43,13 +43,13 @@ the same import map. Copy this into your page's `<head>`:
 </script>
 ```
 
-Pin to a tag (`@v0.1.0`) or a commit for an immutable, long-cached URL.
-`@main` (as above) also works but is mutable and cached for up to a week. The Statically CDN
+Pinned to a commit (as above) for an immutable, long-cached URL — a tag (`@v0.1.0`)
+works too. `@main` also resolves but is mutable and cached for up to a week. The Statically CDN
 uses the same path shape:
 
 ```
-jsDelivr (GitHub):   https://cdn.jsdelivr.net/gh/tejaswigowda/3dom@main/dist/3dom.esm.min.js
-Statically (GitHub): https://cdn.statically.io/gh/tejaswigowda/3dom/main/dist/3dom.esm.min.js
+jsDelivr (GitHub):   https://cdn.jsdelivr.net/gh/tejaswigowda/3dom@838d7d73e55707eb0fc0eb680a28ceba44022c52/dist/3dom.esm.min.js
+Statically (GitHub): https://cdn.statically.io/gh/tejaswigowda/3dom/838d7d73e55707eb0fc0eb680a28ceba44022c52/dist/3dom.esm.min.js
 ```
 
 > **Strata itself consumes the library this exact way.** The editor's import map
@@ -79,7 +79,7 @@ $S.undo();   // built-in, reversible
 $S.redo();
 ```
 
-Try the [**live demo**](examples/bare.html):
+Try the [**live demo**](http://tejaswigowda.com/3dom/examples/bare.html):
 orbit/pan/zoom the scene, click any selector or op, and type your own `$S(...)` in the
 live shell. Source: [`examples/bare.html`](examples/bare.html). No editor, no bundler.
 
