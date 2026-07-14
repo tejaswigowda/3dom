@@ -1,5 +1,6 @@
 # 3D Object Model
 
+<img width=100% src='examples/demo.gif'>
 **jQuery for 3D.** Address and edit *any* three.js scene with CSS-like selectors,
 deterministic auto-labelling, and undoable ops. All in one line:
 
