@@ -14,7 +14,9 @@ No editor. No framework. No build step required. Just three.js (a **peer** depen
 
 
 ▶ **Repository:** [http://tejaswigowda.com/3dom/](http://tejaswigowda.com/3dom/)
+
 ▶ **Spec:** [https://github.com/tejaswigowda/3dom/blob/main/SPEC.md](https://github.com/tejaswigowda/3dom/blob/main/SPEC.md)
+
 ▶ **Live demo:** [bare.html](http://tejaswigowda.com/3dom/examples/bare.html) · [bare-3mf.html](http://tejaswigowda.com/3dom/examples/bare-3mf.html)
 
 
