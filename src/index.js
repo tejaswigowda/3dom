@@ -42,6 +42,7 @@ export function createS( sceneOrHost, opts = {} ) {
 	$S.undo = () => { host.undo(); return $S; };
 	$S.redo = () => { host.redo(); return $S; };
 	$S.query = ( selector ) => selectorEngine.query( host.scene, selector );
+	$S.listSelectors = () => selectorEngine.selectorCounts( host.scene );
 
 	return $S;
 

@@ -95,6 +95,7 @@
 		<button data-src="$S('mesh').count">$S('mesh').count</button>
 		<button data-src="$S('.wheel').names">$S('.wheel').names</button>
 		<button data-src="$S('#Body').classes()">$S('#Body').classes()</button>
+		<button data-src="$S.listSelectors()">$S.listSelectors()  // all selectors + counts</button>
 
 		<div class="grp">Mutations (undoable)</div>
 		<button data-src="$S('.wheel').recolor('#ff3b3b')">$S('.wheel').recolor('#ff3b3b')</button>
@@ -217,7 +218,7 @@
 		// ── describe any $S result for the log ────────────────────────────────
 		function describe( v ) {
 			if ( v == null ) return String( v );
-			if ( Array.isArray( v ) ) return '[ ' + v.join( ', ' ) + ' ]';
+			if ( Array.isArray( v ) ) return '[ ' + v.map( i => typeof i === 'object' && i !== null ? JSON.stringify( i ) : i ).join( ', ' ) + ' ]';
 			if ( typeof v === 'object' && typeof v.count === 'number' && Array.isArray( v.nodes ) ) {
 				const names = v.nodes.map( ( n ) => n.name ).filter( Boolean );
 				return `→ set of ${v.count}` + ( names.length ? `: ${names.join( ', ' )}` : '' );

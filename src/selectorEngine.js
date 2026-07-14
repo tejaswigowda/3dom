@@ -15,7 +15,7 @@
 //   const ast = selectorEngine.parse( '.wheel.front' );
 //   const matched = selectorEngine.match( root, ast );
 
-import { hasClass, normalizeClassName } from './classDerive.js';
+import { hasClass, normalizeClassName, getAllClasses } from './classDerive.js';
 
 // Bare three.js type tokens we recognize via is* flags (validated by shape, not
 // instanceof — house rule). Any other bare token is matched against node.type
@@ -443,5 +443,42 @@ export function isValid( selector ) {
 		return false;
 
 	}
+
+}
+
+/**
+ * Enumerate all addressable selectors in the scene with their match counts.
+ * Returns collapsed format: [{selector: '.wheel', count: 4}, {selector: '#cab', count: 1}].
+ * @param {THREE.Object3D} root
+ * @returns {Array<{selector: string, count: number}>}
+ */
+export function selectorCounts( root ) {
+
+	const counts = new Map();
+
+	root.traverse( node => {
+
+		// .classes
+		const classes = getAllClasses( node );
+		for ( const cls of classes ) {
+
+			const sel = `.${ cls }`;
+			counts.set( sel, ( counts.get( sel ) || 0 ) + 1 );
+
+		}
+
+		// #label
+		if ( node.userData.label ) {
+
+			const label = normalizeClassName( node.userData.label );
+			if ( label ) counts.set( `#${ label }`, ( counts.get( `#${ label }` ) || 0 ) + 1 );
+
+		}
+
+	} );
+
+	return Array.from( counts.entries() )
+		.map( ( [ selector, count ] ) => ( { selector, count } ) )
+		.sort( ( a, b ) => b.count - a.count );
 
 }

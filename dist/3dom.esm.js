@@ -248,6 +248,7 @@ __export(selectorEngine_exports, {
   match: () => match,
   parse: () => parse,
   query: () => query,
+  selectorCounts: () => selectorCounts,
   setSelectionProvider: () => setSelectionProvider
 });
 
@@ -552,6 +553,21 @@ function isValid(selector) {
   } catch {
     return false;
   }
+}
+function selectorCounts(root) {
+  const counts = /* @__PURE__ */ new Map();
+  root.traverse((node) => {
+    const classes = getAllClasses(node);
+    for (const cls of classes) {
+      const sel = `.${cls}`;
+      counts.set(sel, (counts.get(sel) || 0) + 1);
+    }
+    if (node.userData.label) {
+      const label = normalizeClassName(node.userData.label);
+      if (label) counts.set(`#${label}`, (counts.get(`#${label}`) || 0) + 1);
+    }
+  });
+  return Array.from(counts.entries()).map(([selector, count]) => ({ selector, count })).sort((a, b) => b.count - a.count);
 }
 
 // src/ops.js
@@ -1395,6 +1411,7 @@ function createS(sceneOrHost, opts = {}) {
     return $S;
   };
   $S.query = (selector) => query(host.scene, selector);
+  $S.listSelectors = () => selectorCounts(host.scene);
   return $S;
 }
 var src_default = createS;

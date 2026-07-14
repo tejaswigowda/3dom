@@ -36,7 +36,17 @@ const $S = createS( sceneOrHost, opts );
   built-in `DefaultHost`.
 - Returns a callable `$S(selector) → ChainableSet`, with attached helpers:
   `.host` `.scene` `.autoLabel(opts?)` `.op(json)` `.ops(list)` `.undo()`
-  `.redo()` `.query(selector)`.
+  `.redo()` `.query(selector)` `.listSelectors()`.
+
+### `$S.listSelectors()`
+
+Enumerates every addressable class and id selector in the current scene,
+with match counts. Returns an array sorted by count descending:
+
+```js
+$S.listSelectors();
+// → [{ selector: '.wheel', count: 4 }, { selector: '#body', count: 1 }, …]
+```
 
 `selector` is either a **selector string** (§3) or an **array of nodes**.
 

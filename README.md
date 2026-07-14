@@ -86,6 +86,8 @@ $S('.roof').setVisible(false);
 
 $S.undo();   // built-in, reversible
 $S.redo();
+
+$S.listSelectors();  // [{ selector: '.wheel', count: 4 }, …]
 ```
 
 **Live demo:** Open [bare.html](http://tejaswigowda.com/3dom/examples/bare.html), orbit/pan/zoom the scene, click selectors and ops, and type your own `$S(...)` commands in the live shell. Source: [`examples/bare.html`](examples/bare.html). No editor, no bundler required.
@@ -126,6 +128,9 @@ All operations return `this` for chaining, and are undoable by default.
 
 **Labeling:**  
 `.addClass()` · `.removeClass()` · `.editID(name)`
+
+**Introspection:**  
+`$S.listSelectors()`
 
 **JSON ops:**  
 `.op(json)` · `.ops([...])`
