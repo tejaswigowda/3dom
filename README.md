@@ -41,7 +41,7 @@ Copy this into your page's `<head>`:
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/build/three.module.js",
-  "@tejaswigowda/3dom": "https://cdn.jsdelivr.net/gh/tejaswigowda/3dom@838d7d73e55707eb0fc0eb680a28ceba44022c52/dist/3dom.esm.min.js"
+  "@tejaswigowda/3dom": "https://cdn.jsdelivr.net/gh/tejaswigowda/3dom@602ee8bb081df171cb3bc7cb6a621babc3a84faf/dist/3dom.esm.min.js"
 } }
 </script>
 <script type="module">
@@ -54,12 +54,12 @@ Pinned to a commit (as above) for an immutable, long-cached URL — a tag like `
 
 **jsDelivr:**
 ```
-https://cdn.jsdelivr.net/gh/tejaswigowda/3dom@838d7d73e55707eb0fc0eb680a28ceba44022c52/dist/3dom.esm.min.js
+https://cdn.jsdelivr.net/gh/tejaswigowda/3dom@602ee8bb081df171cb3bc7cb6a621babc3a84faf/dist/3dom.esm.min.js
 ```
 
 **Statically:**
 ```
-https://cdn.statically.io/gh/tejaswigowda/3dom/838d7d73e55707eb0fc0eb680a28ceba44022c52/dist/3dom.esm.min.js
+https://cdn.statically.io/gh/tejaswigowda/3dom/602ee8bb081df171cb3bc7cb6a621babc3a84faf/dist/3dom.esm.min.js
 ```
 
 > **Note:** Strata editor consumes this library exactly this way. Its import map maps `@tejaswigowda/3dom` to the pinned jsDelivr URL, then `strata3dom.js` imports it by bare specifier.
