@@ -1,6 +1,5 @@
 # 3D Object Model
 
-<img width=100% src='examples/demo.gif'>
 **jQuery for 3D.** Address and edit *any* three.js scene with CSS-like selectors,
 deterministic auto-labelling, and undoable ops. All in one line:
 
@@ -9,8 +8,10 @@ $S('.wheel').recolor('#111').scale(1.2);
 $S.undo();
 ```
 
-No editor. No framework. No build step required. Just three.js (a **peer**
-dependency) and this.
+<img src="https://raw.githubusercontent.com/tejaswigowda/3dom/main/examples/demo.gif" alt="3DOM: auto-labelling an imported 3MF model, then selecting and editing it with $S()" width="100%">
+
+No editor. No framework. No build step required. Just three.js (a **peer** dependency) and this.
+
 
 ▶ **Documentation:** http://tejaswigowda.com/3dom/  
 ▶ **Repository:** https://github.com/tejaswigowda/3dom  
