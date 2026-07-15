@@ -164,7 +164,7 @@ const $S = createS({
 });
 ```
 
-This is exactly how the **Strata editor** consumes 3DOM: the library is the model, Strata is the host.
+This is exactly how the [**Strata editor**](https://github.com/tejaswigowda/strata-editor) consumes 3DOM: the library is the model, Strata is the host.
 
 ---
 
